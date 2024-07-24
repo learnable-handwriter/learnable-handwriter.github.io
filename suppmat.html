@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        /* General styles */
+        .code,
+        code {
+            border-radius: 3px;
+            padding: 0.2em 0.4em;
+            font-size: 85%;
+            tab-size: 2;
+        }
+
+        .code {
+            padding: 1.5em 1em;
+        }
+
+        .code-wrap {
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+
+        pre {
+            white-space: pre-wrap;
+            background-color: #f4f4f4;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            font-size: 17px;
+            color: #333;
+            line-height: 1.6;
+            background-color: #f9f9f9;
+            margin: 10px 5px !important;
+            padding: 10px;
+        }
+
+        header {
+            text-align: center;
+            color: #333;
+        }
+
+        header h1 {
+            font-size: 24px;
+        }
+
+        /* Center authors */
+        .authors {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .content {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* Center affiliations */
+        .affiliations {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .conference {
+            text-align: center;
+        }
+
+        /* Container styles */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
+
+        .imgcontainer {
+            width: 90%;
+            margin: auto;
+        }
+
+        /* Center icon links */
+        .icon-links {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: row;
+        }
+
+        /* Image styles */
+        .img-with-text {
+            width: 100%;
+            display: block;
+            margin: 0 auto;
+        }
+
+        /* Icon styles */
+        .icon {
+            width: 80px;
+            height: 80px;
+            background-color: #ddd;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto;
+        }
+
+        .right-aligned-image {
+            margin-left: auto;
+            align-self: flex-start;
+            margin-top: 0;
+        }
+
+        .right-aligned-image img {
+            max-width: 300px;
+            height: auto;
+        }
+
+        /* Link styles */
+        .icon-links a {
+            display: inline-block;
+            margin: 0 20px;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .center-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .icon-links a:hover img {
+            filter: brightness(70%);
+        }
+
+        h1 {
+            font-size: 2rem;
+            /* Adjusted font size */
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 0.9rem;
+            color: #333;
+        }
+
+        .icon-label {
+            margin-top: 5px;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .References p ul li {
+            font-size: 0.8rem;
+        }
+
+        .teaser-image img {
+            display: block;
+            margin: 0 auto;
+            max-width: 100%;
+            height: auto;
+        }
+
+        .centered-image {
+            text-align: center;
+        }
+
+        .centered-image img {
+            margin: 0 auto;
+            max-width: 90%;
+            height: auto;
+        }
+
+        .logo-image {
+            text-align: center;
+        }
+
+        .logo-image img {
+            margin: 0 auto;
+            max-width: 90%;
+            height: 6;
+        }
+
+        .conference-image img {
+            margin: 0 auto;
+            width: 100px;
+            height: auto;
+        }
+
+        .abstract {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: justify;
+        }
+
+        .abstract h2 {
+            text-align: center;
+            /* Center the heading */
+            font-size: 1.5rem;
+            /* Adjust heading size */
+            margin-bottom: 20px;
+            /* Add some space below the heading */
+        }
+
+        .para p {
+            max-width: 100%;
+            line-height: 1.6;
+        }
+
+        .row::after {
+            content: "";
+            clear: both;
+            justify-content: center;
+            flex-wrap: wrap;
+            display: table;
+        }
+
+        .column {
+            float: left;
+            width: 24%;
+            padding: 2px;
+        }
+
+        .image-pair {
+            flex: 1;
+            margin-bottom: 2px;
+        }
+
+        .image-pair img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Flex container for side by side images */
+        .side-by-side {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .side-by-side img {
+            max-width: 40%;
+            height: auto;
+        }
+
+        /* Style for clickable images */
+        .clickable-image img {
+            max-width: 100%;
+            height: auto;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .clickable-image img:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+        <h1>Supplementary Material</h1>
+        <p><b>All Character Graphs:</b></p>
+        <div class="clickable-image">
+            <a href="images/graphs/all_character_graphs.jpg" target="_blank">
+                <img src="images/graphs/all_character_graphs.jpg" alt="Letter graphs">
+            </a>
+        </div>
+
+        <p><b>All Document Graphs:</b></p>
+        <div class="clickable-image">
+            <a href="images/graphs/all_document_graphs.jpg" target="_blank">
+                <img src="images/graphs/all_document_graphs.jpg" alt="Doc graphs">
+            </a>
+        </div>
+    </div>
+</body>
+
+</html>
