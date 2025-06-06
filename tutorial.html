@@ -212,9 +212,11 @@
         <li style="padding-left: 40px;"><a href="#data-format">→ Data Format Requirements</a></li>
         <li style="padding-left: 40px;"><a href="#best-practices">→ Scientific Guidelines & Best Practices</a></li>
         <li><a href="#chapter2">Section 2: Installation & Training</a></li>
+        <li style="padding-left: 40px;"><a href="#config-files">→ Understanding Config Files</a></li>
         <li style="padding-left: 40px;"><a href="#installation">→ System Setup & Installation</a></li>
         <li style="padding-left: 40px;"><a href="#training">→ Training Process</a></li>
         <li style="padding-left: 40px;"><a href="#custom-data">→ Custom Data Training</a></li>
+        <li><a href="#case-studies">Section 3: Case Studies</a></li>
       </ul>
     </div>
 
@@ -243,10 +245,10 @@
       <p>The <code>annotation.json</code> file must contain entries in this exact format:</p>
       <pre><code>{
   "&lt;image_id&gt;": {
-    "split": "train",                    # {"train", "val", "test"}
+    "split": "train",                    # {"train" or "val" if you don't want to train on these data but want to finetune on them}
     "label": "your transcription text",  # The ground truth text
-    "script": "Script_Type_Name",        # (optional) Script classification
-    "page": "manuscript_page.jpg"        # (optional) Source page reference
+    "script": "Script_Type_Name",        # Script category (hand or script type)
+    "page": "manuscript_page.jpg"        # (optional) Source page reference, or other metadata
   },
   ...
 }</code></pre>
@@ -257,24 +259,23 @@
     </section>
 
     <section id="best-practices">
-      <h2>🔬 Scientific Guidelines & Best Practices</h2>
-      <p>Following these evidence-based guidelines will significantly improve your model's performance and training stability:</p>
+      <h2>🔬 Best Practices for Data</h2>
 
       <div class="best-practices">
         <div class="practice-item">
-          <strong>✍️ Script Articulation:</strong> Prioritize <em>articulated scripts</em> where individual letters are well-separated over highly cursive writing. While cursive scripts can be tested, clear letter boundaries improve character recognition accuracy by 15-25% in our experiments.
+          <strong>✍️ Script Type selection:</strong> Prioritize <em>articulated scripts</em> where individual letters are well-separated over highly cursive writing. While cursive scripts can be tested, resulting prototypes can be blurry and not well modeled/defined.
         </div>
 
         <div class="practice-item">
-          <strong>✂️ Precise Segmentation:</strong> Ensure accurate polygon segmentation with no surrounding letters or extraneous marks. Clean boundaries are critical for proper character isolation.
+          <strong>✂️ Precise Segmentation:</strong> Ensure accurate polygon segmentation with no surrounding letters or extraneous marks. Clean boundaries are critical for proper character isolation. Surrounding noise (like letters from previous lines) can create noise in the prototype.
           <div class="image-container">
             <img src="images/tutorial/polygon_example.png" alt="Example showing good vs poor polygon segmentation">
-            <div class="image-caption">Left: Clean segmentation. Right: Poor segmentation with surrounding letters</div>
+            <div class="image-caption">Example of good polygon segmentation.</div>
           </div>
         </div>
 
         <div class="practice-item">
-          <strong>📐 Text Orientation:</strong> Minimize text inclination whenever possible. Images should be as horizontally aligned as feasible. Excessive skew (>5°) can reduce recognition accuracy and increase training time.
+          <strong>📐 Text Orientation:</strong> Minimize text inclination whenever possible. Images should be as horizontally aligned as possible.
         </div>
 
         <div class="practice-item">
@@ -282,29 +283,26 @@
         </div>
 
         <div class="practice-item">
-          <strong>🚫 Image Quality:</strong> Avoid images with ink spills, severe parchment damage, or excessive noise. These artifacts can confuse the training process and reduce model generalization.
+          <strong>🚫 Image Quality:</strong> Avoid images with ink spills, severe parchment damage, or excessive noise. 
         </div>
 
         <div class="practice-item">
-          <strong>📏 Consistent Line Length:</strong> Maintain coherent line lengths throughout your dataset. Avoid mixing very short lines (e.g., from column layouts) with very long lines (e.g., from charters). Inconsistent lengths can cause memory allocation issues during training.
+          <strong>📏 Consistent Line Length:</strong> Maintain coherent line lengths throughout your dataset. Avoid mixing very short lines (e.g., from column layouts- manuscripts) with very long lines (e.g., lengthy charter lines). Inconsistent lengths can cause memory allocation issues during training.
         </div>
 
         <div class="practice-item">
           <strong>🌓 High Contrast:</strong> Ensure strong contrast between ink and background. Poor contrast significantly impacts character recognition performance.
           <div class="image-container">
             <img src="images/tutorial/contrast_example.png" alt="Examples of good vs poor contrast in manuscript images">
-            <div class="image-caption">Top: Good contrast. Bottom: Poor contrast affecting recognition</div>
+            <div class="image-caption">Poor contrast affecting separation of the foreground to the background</div>
           </div>
         </div>
 
         <div class="practice-item">
-          <strong>📊 Character Distribution:</strong> Include at least <em>30 characters per class</em>, with >50 characters being optimal. Insufficient character examples lead to poor generalization and class imbalance issues. This is based on statistical learning theory requirements for reliable pattern recognition.
+          <strong>📊 Character Distribution:</strong> Include at least <em>15-20 characters per character class</em>, with >30 characters being optimal. Insufficient character examples lead to poor modeling of a character that is not reliable for palaeographical analysis
         </div>
       </div>
 
-      <div class="warning">
-        <strong>⚠️ Critical Success Factors:</strong> The most common causes of training failure are: (1) inconsistent line lengths causing memory errors, (2) insufficient character examples per class, and (3) poor image contrast. Address these first before troubleshooting other issues.
-      </div>
     </section>
 
     <!-- CHAPTER 2: INSTALLATION & TRAINING -->
@@ -312,10 +310,37 @@
       ⚙️ Section 2: Installation & Training
     </div>
 
+    <section id="config-files">
+      <h2>📋 Understanding Config Files</h2>
+      <p>Before training, it's important to understand the configuration structure that controls the training process:</p>
+      
+      <div class="image-container">
+        <img src="images/tutorial/config_info.png" alt="Configuration files structure and hierarchy">
+        <div class="image-caption">Configuration files structure for training setup</div>
+      </div>
+
+      <p>The configuration system uses YAML files to define hyperparameters, dataset paths, and training settings. Each experiment requires both a dataset configuration and a main configuration file.</p>
+    </section>
+
     <section id="installation">
       <h2>🚀 System Requirements & Setup</h2>
       <div class="warning">
         <strong>⚠️ Platform Compatibility:</strong> macOS is not supported due to compatibility issues with PyTorch's affine transforms. We recommend running on a Linux system with CUDA support. GPU usage is strongly advised for training.
+      </div>
+
+      <div class="note">
+        <strong>🚀 No GPU? Use Google Colab!</strong><br>
+        If you don't have access to a GPU, you can train models using our Google Colab notebook:<br>
+        <a href="https://colab.research.google.com/drive/12CGIAhzeBJWgm9o9Tb8dCHFDxzcxwWzF?usp=sharing" target="_blank">
+          <img src="images/tutorial/colab_training.png" alt="Google Colab Training" style="max-width: 200px; margin: 10px 0;">
+        </a><br>
+        <a href="https://colab.research.google.com/drive/12CGIAhzeBJWgm9o9Tb8dCHFDxzcxwWzF?usp=sharing" target="_blank">→ Open Training Colab</a>
+      </div>
+
+      <div class="note">
+        <strong>🔬 Quick Inference Only?</strong><br>
+        For minimal inference on pre-trained and fine-tuned models without installation:<br>
+        <a href="https://colab.research.google.com/drive/11_CGvoXvpulKNEDsRN9MdBS35NvNz5l7?usp=sharing" target="_blank">→ Open Inference-Only Colab</a>
       </div>
       
       <h3>📦 Installation Steps</h3>
@@ -336,6 +361,9 @@ conda activate lhr</code></pre>
         <li>
           <strong>Install requirements:</strong>
           <pre><code>python -m pip install -r requirements.txt</code></pre>
+          <div class="note">
+            <strong>📊 Training Visualization:</strong> Weights & Biases (wandb) is automatically installed for training process visualization and monitoring.
+          </div>
         </li>
       </ol>
     </section>
@@ -419,10 +447,55 @@ conda activate lhr</code></pre>
     <section>
       <h2>📌 Technical Implementation Notes</h2>
       <ul>
-        <li>The system internally uses <code>choco-mufin</code> with a <code>disambiguation-table.csv</code> to normalize or exclude characters from annotations.</li>
+        <li>The system internally uses <a href="https://github.com/PonteIneptique/choco-mufin" target="_blank">choco-mufin</a> with a <a href="https://github.com/malamatenia/learnable-handwriter/blob/3d68289c8148df1808343d3cd74e6f1f58993856/learnable_typewriter/data/disambiguation_table.csv" target="_blank">disambiguation-table.csv</a> to normalize or exclude characters from annotations.</li>
         <li>Current configuration suppresses allographs and edition signs (e.g., modern punctuation) for consistent graphetic results.</li>
         <li>Character normalization ensures consistent analysis regardless of annotation source variations.</li>
       </ul>
+      
+      <div class="warning">
+        <strong>⚠️ Latin Script Default:</strong> The disambiguation table will be used as DEFAULT if not changed to normalize data in Latin scripts. Ensure this is appropriate for your script type before training.
+      </div>
+    </section>
+
+    <!-- CHAPTER 3: CASE STUDIES -->
+    <div class="chapter-title" id="case-studies">
+      📚 Section 3: Case Studies
+    </div>
+
+    <section>
+      <h2>🔬 Case Study 1: Morphological Script Type Analysis</h2>
+      <h3>Northern and Southern Textualis</h3>
+      <p>This comprehensive case study demonstrates morphological analysis of medieval script types using the Learnable Handwriter framework.</p>
+      
+      <div class="best-practices">
+        <div class="practice-item">
+          <strong>📖 Full Implementation:</strong>
+          <a href="https://github.com/malamatenia/learnable-handwriter" target="_blank">→ View Complete Repository</a>
+        </div>
+        
+        <div class="practice-item">
+          <strong>📊 Reproduce Results:</strong>
+          <a href="https://colab.research.google.com/github/malamatenia/learnable-handwriter/blob/a9cec8b42373ad149db69cd66dadf6b2ce350876/scripts/reproduce_results/figures.ipynb" target="_blank">→ Open Figures Reproduction Colab</a>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>✍️ Case Study 2: Hand Variability Analysis</h2>
+      <h3>Graphic Profiles of Codex Paris, BnF, 2813</h3>
+      <p>This study analyzes paleographic variability within the Grandes Chroniques de France manuscript, demonstrating individual hand identification and analysis.</p>
+      
+      <div class="best-practices">
+        <div class="practice-item">
+          <strong>📂 Analysis Scripts:</strong>
+          <a href="https://github.com/malamatenia/palaeographic-variability-analysis-grandes-chroniques-fr-2813/tree/main/scripts" target="_blank">→ View Analysis Repository</a>
+        </div>
+        
+        <div class="practice-item">
+          <strong>🧪 Run Colab Notebooks:</strong>
+          <a href="https://github.com/malamatenia/palaeographic-variability-analysis-grandes-chroniques-fr-2813/tree/main/scripts" target="_blank">→ Access Colab Scripts</a>
+        </div>
+      </div>
     </section>
 
     <footer>
