@@ -345,7 +345,7 @@ conda activate lhr</code></pre>
         
         <li>
           <strong>Install PyTorch:</strong>
-          <p>Follow the official PyTorch installation guide for your system. Ensure CUDA compatibility if using GPU.</p>
+          <p>Follow the <a href="https://pytorch.org/get-started/locally/" target="_blank">official PyTorch installation guide for your system</a>. Ensure CUDA compatibility if using GPU.</p>
         </li>
         
         <li>
@@ -360,10 +360,20 @@ conda activate lhr</code></pre>
 
     <section id="training">
       <h2>Training on Provided Dataset</h2>
-      <p>To get started quickly with our reference dataset from the paper <a href="https://github.com/malamatenia/learnable-handwriter" target="_blank">"An Interpretable Deep Learning Approach for Morphological Script Type Analysis (IWCP 2024)</a>:</p> 
+        <p>
+    To get started quickly with our reference dataset from the paper
+    <a href="https://github.com/malamatenia/learnable-handwriter" target="_blank">
+      “An Interpretable Deep Learning Approach for Morphological Script Type Analysis (IWCP 2024)”
+    </a>:
+  </p>
 
-      <ol>
-        <li>Download and extract <code>datasets.zip</code></li>
+  <ol>
+    <li>
+      Download and extract 
+      <a href="https://www.dropbox.com/scl/fi/tfz79kwxoe4vp5e4npmxa/datasets.zip?rlkey=2820mu0bddpnax6alx04bglzu&st=caxfyfsp&dl=0" target="_blank">
+        <code>datasets.zip</code>
+      </a>
+    </li>
         <li>Run the training script:
           <pre><code>python scripts/train.py iwcp_south_north.yaml</code></pre>
         </li>
