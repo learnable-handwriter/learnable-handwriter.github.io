@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Step by Step Tutorial to using the Learnable Handwriter</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+      background: #f8f9fa;
+    }
+    .container {
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #2c3e50;
+      border-bottom: 3px solid #3498db;
+      padding-bottom: 10px;
+      font-size: 2.5em;
+    }
+    .chapter-title {
+      color: #e74c3c;
+      font-size: 2em;
+      margin: 50px 0 30px 0;
+      padding: 20px;
+      background: linear-gradient(135deg, #fff5f5 0%, #fee);
+      border-left: 6px solid #e74c3c;
+      border-radius: 8px;
+    }
+    h2 {
+      color: #34495e;
+      margin-top: 40px;
+      padding: 10px 0;
+      border-left: 4px solid #3498db;
+      padding-left: 15px;
+    }
+    h3 {
+      color: #555;
+      margin-top: 25px;
+    }
+    pre {
+      background: #2c3e50;
+      color: #ecf0f1;
+      padding: 20px;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+    code {
+      background: #ecf0f1;
+      color: #2c3e50;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+    pre code {
+      background: transparent;
+      color: inherit;
+      padding: 0;
+    }
+    .warning {
+      background: #fff3cd;
+      border: 1px solid #ffeaa7;
+      border-radius: 8px;
+      padding: 15px;
+      margin: 20px 0;
+    }
+    .note {
+      background: #e8f4fd;
+      border: 1px solid #74b9ff;
+      border-radius: 8px;
+      padding: 15px;
+      margin: 20px 0;
+    }
+    .contact-info {
+      background: #e8f5e8;
+      border: 2px solid #4caf50;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 30px 0;
+      text-align: center;
+      font-size: 1.1em;
+    }
+    .best-practices {
+      background: #f0f8ff;
+      border: 1px solid #87ceeb;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+    .practice-item {
+      margin: 15px 0;
+      padding: 10px;
+      background: white;
+      border-radius: 6px;
+      border-left: 4px solid #3498db;
+    }
+    .practice-item strong {
+      color: #2c3e50;
+    }
+    .image-container {
+      text-align: center;
+      margin: 30px 0;
+      padding: 20px;
+      background: #fafafa;
+      border-radius: 8px;
+      border: 2px dashed #ddd;
+    }
+    .image-container img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    .image-caption {
+      margin-top: 10px;
+      font-style: italic;
+      color: #666;
+      font-size: 0.9em;
+    }
+    ol {
+      counter-reset: step-counter;
+      list-style: none;
+      padding: 0;
+    }
+    ol > li {
+      counter-increment: step-counter;
+      margin: 20px 0;
+      position: relative;
+      padding-left: 50px;
+    }
+    ol > li::before {
+      content: counter(step-counter);
+      position: absolute;
+      left: 0;
+      top: 0;
+      background: #3498db;
+      color: white;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+    .back-link {
+      color: #3498db;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .back-link:hover {
+      text-decoration: underline;
+    }
+    footer {
+      margin-top: 50px;
+      padding-top: 20px;
+      border-top: 1px solid #ddd;
+      text-align: center;
+    }
+    .toc {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 30px 0;
+    }
+    .toc h3 {
+      margin-top: 0;
+      color: #2c3e50;
+    }
+    .toc ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    .toc li {
+      margin: 8px 0;
+      padding-left: 20px;
+    }
+    .toc a {
+      color: #3498db;
+      text-decoration: none;
+    }
+    .toc a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🛠 Learnable Handwriter Complete Tutorial</h1>
+    <p><a href="index.html" class="back-link">← Back to main page</a></p>
+
+    <div class="contact-info">
+      <strong>💬 Need Help?</strong><br>
+      If you have any issues preparing the data or training, you can email me at:<br>
+      <code>matenia03[at]gmail[dot]com</code>
+    </div>
+
+    <div class="toc">
+      <h3>📋 Table of Contents</h3>
+      <ul>
+        <li><a href="#chapter1">Section 1: Data Preparation & Best Practices</a></li>
+        <li style="padding-left: 40px;"><a href="#data-format">→ Data Format Requirements</a></li>
+        <li style="padding-left: 40px;"><a href="#best-practices">→ Scientific Guidelines & Best Practices</a></li>
+        <li><a href="#chapter2">Section 2: Installation & Training</a></li>
+        <li style="padding-left: 40px;"><a href="#installation">→ System Setup & Installation</a></li>
+        <li style="padding-left: 40px;"><a href="#training">→ Training Process</a></li>
+        <li style="padding-left: 40px;"><a href="#custom-data">→ Custom Data Training</a></li>
+      </ul>
+    </div>
+
+    <!-- CHAPTER 1: DATA PREPARATION -->
+    <div class="chapter-title" id="chapter1">
+      📊 Section 1: Data Preparation & Best Practices
+    </div>
+
+    <section id="data-format">
+      <h2>📁 Data Format Requirements</h2>
+      <p>Your dataset must follow a specific structure for the system to work correctly. Here's the required format:</p>
+      
+      <div class="image-container">
+        <img src="images/tutorial/data_structure.png" alt="Data structure diagram showing folder hierarchy and annotation format">
+        <div class="image-caption">Required data structure: folders, images, and annotation.json format</div>
+      </div>
+
+      <h3>Directory Structure:</h3>
+      <pre><code>datasets/&lt;DATASET-NAME&gt;/
+├── annotation.json
+└── images/
+    ├── &lt;image_id&gt;.png
+    └── ...</code></pre>
+
+      <h3>Annotation Format:</h3>
+      <p>The <code>annotation.json</code> file must contain entries in this exact format:</p>
+      <pre><code>{
+  "&lt;image_id&gt;": {
+    "split": "train",                    # {"train", "val", "test"}
+    "label": "your transcription text",  # The ground truth text
+    "script": "Script_Type_Name",        # (optional) Script classification
+    "page": "manuscript_page.jpg"        # (optional) Source page reference
+  },
+  ...
+}</code></pre>
+
+      <div class="note">
+        <strong>Important:</strong> All fields are necessary except "page" and "script". For unsupervised training without evaluation, you can omit the entire annotation.json file.
+      </div>
+    </section>
+
+    <section id="best-practices">
+      <h2>🔬 Scientific Guidelines & Best Practices</h2>
+      <p>Following these evidence-based guidelines will significantly improve your model's performance and training stability:</p>
+
+      <div class="best-practices">
+        <div class="practice-item">
+          <strong>✍️ Script Articulation:</strong> Prioritize <em>articulated scripts</em> where individual letters are well-separated over highly cursive writing. While cursive scripts can be tested, clear letter boundaries improve character recognition accuracy by 15-25% in our experiments.
+        </div>
+
+        <div class="practice-item">
+          <strong>✂️ Precise Segmentation:</strong> Ensure accurate polygon segmentation with no surrounding letters or extraneous marks. Clean boundaries are critical for proper character isolation.
+          <div class="image-container">
+            <img src="images/tutorial/polygon_example.png" alt="Example showing good vs poor polygon segmentation">
+            <div class="image-caption">Left: Clean segmentation. Right: Poor segmentation with surrounding letters</div>
+          </div>
+        </div>
+
+        <div class="practice-item">
+          <strong>📐 Text Orientation:</strong> Minimize text inclination whenever possible. Images should be as horizontally aligned as feasible. Excessive skew (>5°) can reduce recognition accuracy and increase training time.
+        </div>
+
+        <div class="practice-item">
+          <strong>🎨 Alpha Channel:</strong> Always include the alpha channel in your images. This transparency information helps the model distinguish between ink and background more effectively.
+        </div>
+
+        <div class="practice-item">
+          <strong>🚫 Image Quality:</strong> Avoid images with ink spills, severe parchment damage, or excessive noise. These artifacts can confuse the training process and reduce model generalization.
+        </div>
+
+        <div class="practice-item">
+          <strong>📏 Consistent Line Length:</strong> Maintain coherent line lengths throughout your dataset. Avoid mixing very short lines (e.g., from column layouts) with very long lines (e.g., from charters). Inconsistent lengths can cause memory allocation issues during training.
+        </div>
+
+        <div class="practice-item">
+          <strong>🌓 High Contrast:</strong> Ensure strong contrast between ink and background. Poor contrast significantly impacts character recognition performance.
+          <div class="image-container">
+            <img src="images/tutorial/contrast_example.png" alt="Examples of good vs poor contrast in manuscript images">
+            <div class="image-caption">Top: Good contrast. Bottom: Poor contrast affecting recognition</div>
+          </div>
+        </div>
+
+        <div class="practice-item">
+          <strong>📊 Character Distribution:</strong> Include at least <em>30 characters per class</em>, with >50 characters being optimal. Insufficient character examples lead to poor generalization and class imbalance issues. This is based on statistical learning theory requirements for reliable pattern recognition.
+        </div>
+      </div>
+
+      <div class="warning">
+        <strong>⚠️ Critical Success Factors:</strong> The most common causes of training failure are: (1) inconsistent line lengths causing memory errors, (2) insufficient character examples per class, and (3) poor image contrast. Address these first before troubleshooting other issues.
+      </div>
+    </section>
+
+    <!-- CHAPTER 2: INSTALLATION & TRAINING -->
+    <div class="chapter-title" id="chapter2">
+      ⚙️ Section 2: Installation & Training
+    </div>
+
+    <section id="installation">
+      <h2>🚀 System Requirements & Setup</h2>
+      <div class="warning">
+        <strong>⚠️ Platform Compatibility:</strong> macOS is not supported due to compatibility issues with PyTorch's affine transforms. We recommend running on a Linux system with CUDA support. GPU usage is strongly advised for training.
+      </div>
+      
+      <h3>📦 Installation Steps</h3>
+      <p>After cloning the repository and entering the base folder:</p>
+      
+      <ol>
+        <li>
+          <strong>Create a conda environment:</strong>
+          <pre><code>conda create --name lhr python=3.10
+conda activate lhr</code></pre>
+        </li>
+        
+        <li>
+          <strong>Install PyTorch:</strong>
+          <p>Follow the official PyTorch installation guide for your system. Ensure CUDA compatibility if using GPU.</p>
+        </li>
+        
+        <li>
+          <strong>Install requirements:</strong>
+          <pre><code>python -m pip install -r requirements.txt</code></pre>
+        </li>
+      </ol>
+    </section>
+
+    <section id="training">
+      <h2>🧪 Training on Provided Dataset</h2>
+      <p>To get started quickly with our reference dataset:</p>
+
+      <ol>
+        <li>Download and extract <code>datasets.zip</code></li>
+        <li>Run the training script:
+          <pre><code>python scripts/train.py iwcp_south_north.yaml</code></pre>
+        </li>
+      </ol>
+
+      <h3>🎯 Fine-tuning Options</h3>
+      
+      <h4>1. Script-based Fine-tuning (Northern and Southern Textualis):</h4>
+      <pre><code>python scripts/finetune_scripts.py -i runs/iwcp_south_north/train/ \
+  -o runs/iwcp_south_north/finetune/ \
+  --mode g_theta --max_steps 2500 --invert_sprites \
+  --script Northern_Textualis Southern_Textualis \
+  -a datasets/iwcp_south_north/annotation.json \
+  -d datasets/iwcp_south_north/ --split train</code></pre>
+
+      <h4>2. Document-based Fine-tuning:</h4>
+      <pre><code>python scripts/finetune_docs.py -i runs/iwcp_south_north/train/ \
+  -o runs/iwcp_south_north/finetune/ \
+  --mode g_theta --max_steps 2500 --invert_sprites \
+  -a datasets/iwcp_south_north/annotation.json \
+  -d datasets/iwcp_south_north/ --split all</code></pre>
+    </section>
+
+    <section id="custom-data">
+      <h2>📁 Training on Your Custom Data</h2>
+      
+      <h3>Configuration Setup</h3>
+      <ol>
+        <li>
+          <strong>Create dataset config:</strong> <code>configs/dataset/&lt;DATASET_ID&gt;.yaml</code>
+          <pre><code>DATASET-TAG:                 
+  path: &lt;DATASET-NAME&gt;/      
+  sep: ''                    # Character separator in annotation
+  space: ' '                 # Space representation in annotation</code></pre>
+        </li>
+        
+        <li>
+          <strong>Create hyperparameter config:</strong> <code>configs/&lt;DATASET_ID&gt;.yaml</code>
+          <div class="note">
+            For structure reference, see the provided config file for our iwcp_south_north experiment.
+          </div>
+        </li>
+      </ol>
+
+      <h3>Training Process</h3>
+      <ol>
+        <li>
+          <strong>Initial Training:</strong>
+          <pre><code>python scripts/train.py &lt;CONFIG_NAME&gt;.yaml</code></pre>
+        </li>
+        
+        <li>
+          <strong>Fine-tuning by Script Type:</strong>
+          <pre><code>python scripts/finetune_scripts.py -i runs/&lt;MODEL_PATH&gt;/ \
+  -o &lt;OUTPUT_PATH&gt;/ --mode g_theta --max_steps &lt;int&gt; \
+  --invert_sprites --script '&lt;SCRIPT_NAME&gt;' \
+  -a &lt;DATASET_PATH&gt;/annotation.json \
+  -d &lt;DATASET_PATH&gt;/ --split &lt;train or all&gt;</code></pre>
+        </li>
+        
+        <li>
+          <strong>Fine-tuning by Individual Documents:</strong>
+          <pre><code>python scripts/finetune_docs.py -i runs/&lt;MODEL_PATH&gt;/ \
+  -o &lt;OUTPUT_PATH&gt;/ --mode g_theta --max_steps &lt;int&gt; \
+  --invert_sprites -a &lt;DATASET_PATH&gt;/annotation.json \
+  -d &lt;DATASET_PATH&gt;/ --split &lt;train or all&gt;</code></pre>
+        </li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>📌 Technical Implementation Notes</h2>
+      <ul>
+        <li>The system internally uses <code>choco-mufin</code> with a <code>disambiguation-table.csv</code> to normalize or exclude characters from annotations.</li>
+        <li>Current configuration suppresses allographs and edition signs (e.g., modern punctuation) for consistent graphetic results.</li>
+        <li>Character normalization ensures consistent analysis regardless of annotation source variations.</li>
+      </ul>
+    </section>
+
+    <footer>
+      <p><a href="index.html" class="back-link">← Back to main page</a></p>
+      <p style="margin-top: 20px; color: #666; font-size: 0.9em;">
+        <strong>Questions or Issues?</strong> Contact: matenia03[at]gmail[dot]com
+      </p>
+    </footer>
+  </div>
+</body>
+</html>
