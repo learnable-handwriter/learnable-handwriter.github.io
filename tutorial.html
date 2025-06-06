@@ -211,7 +211,6 @@
         <li style="padding-left: 40px;"><a href="#data-format">Data Format Requirements</a></li>
         <li style="padding-left: 40px;"><a href="#best-practices">Data Preparation Best Practices</a></li>
         <li><a href="#chapter2">Section 2: Installation & Training</a></li>
-        <li style="padding-left: 40px;"><a href="#config-files">Understanding Config Files</a></li>
         <li style="padding-left: 40px;"><a href="#installation">System Setup & Installation</a></li>
         <li style="padding-left: 40px;"><a href="#training">Training Process</a></li>
         <li style="padding-left: 40px;"><a href="#custom-data">Custom Data Training</a></li>
@@ -258,66 +257,44 @@
     </section>
 
 <section id="best-practices">
-  <h2>Best Practices for Data</h2>
+      <h3>Best Practices for Data</h3>
 
-  <div class="best-practices">
-    <div class="practice-item">
-      Script type selection: prioritize <em>articulated scripts</em> where individual letters are well-separated over highly cursive writing. While cursive scripts can be tested, resulting prototypes can be blurry and not well modeled.
-    </div>
 
-    <div class="practice-item">
-      Text line segmentation: ensure accurate polygon segmentation with no surrounding letters or extraneous marks. Clean boundaries are critical for proper character isolation. Surrounding noise (like letters from previous lines) can degrade the prototype.
-      <div class="image-container">
-        <img src="images/tutorial/polygon_example.png" alt="Example showing good vs poor polygon segmentation">
-        <div class="image-caption">Example of good polygon segmentation.</div>
-      </div>
-    </div>
 
-    <div class="practice-item">
-      Text orientation: minimize inclination whenever possible. Images should be as horizontally aligned as possible.
-    </div>
+          <strong>Script Type selection:</strong> Prioritize <em>articulated scripts</em> where individual letters are well-separated over highly cursive writing. While cursive scripts can be tested, resulting prototypes can be blurry and not well modeled/defined.
 
-    <div class="practice-item">
-      Alpha channel: always include the alpha channel in your images. This transparency information helps the model distinguish between ink and background more effectively.
-    </div>
 
-    <div class="practice-item">
-      Image quality: avoid images with ink spills, severe parchment damage, or excessive noise. 
-    </div>
 
-    <div class="practice-item">
-      Consistent line length: maintain coherent line lengths throughout your dataset. Avoid mixing very short lines (e.g., from column layouts) with very long ones (e.g., charter lines). Inconsistent lengths can cause memory allocation issues during training.
-    </div>
+          <strong> Text Line Segmentation:</strong> Ensure accurate polygon segmentation with no surrounding letters or extraneous marks. Clean boundaries are critical for proper character isolation. Surrounding noise (like letters from previous lines) can create noise in the prototype.
+          <div class="image-container">
+            <img src="images/tutorial/polygon_example.png" alt="Example showing good vs poor polygon segmentation">
+            <div class="image-caption">Example of good polygon segmentation.</div>
+          </div>
 
-    <div class="practice-item">
-      High contrast: ensure strong contrast between ink and background. Poor contrast significantly impacts character recognition performance.
-      <div class="image-container">
-        <img src="images/tutorial/contrast_example.png" alt="Examples of good vs poor contrast in manuscript images">
-        <div class="image-caption">Poor contrast affecting separation of foreground and background</div>
-      </div>
-    </div>
+          <strong>Text Orientation:</strong> Minimize text inclination whenever possible. Images should be as horizontally aligned as possible.
 
-    <div class="practice-item">
-      Character distribution: include at least <em>15–20 characters per character class</em>, with more than 30 being optimal. Too few examples lead to unreliable modeling and hinder palaeographical analysis.
-    </div>
-  </div>
-</section>
+          <strong>Alpha Channel:</strong> Always include the alpha channel in your images. This transparency information helps the model distinguish between ink and background more effectively.
+
+          <strong>Image Quality:</strong> Avoid images with ink spills, severe parchment damage, or excessive noise. 
+        </div>
+
+          <strong>Consistent Line Length:</strong> Maintain coherent line lengths throughout your dataset. Avoid mixing very short lines (e.g., from column layouts- manuscripts) with very long lines (e.g., lengthy charter lines). Inconsistent lengths can cause memory allocation issues during training.
+        </div>
+
+          <strong>High Contrast:</strong> Ensure strong contrast between ink and background. Poor contrast significantly impacts character recognition performance.
+          <div class="image-container">
+            <img src="images/tutorial/contrast_example.png" alt="Examples of good vs poor contrast in manuscript images">
+            <div class="image-caption">Poor contrast affecting separation of the foreground to the background</div>
+          </div>
+
+          <strong>Character Distribution:</strong> Include at least <em>15-20 characters per character class</em>, with >30 characters being optimal. Insufficient character examples lead to poor modeling of a character that is not reliable for palaeographical analysis
+
+    </section>
 
     <!-- CHAPTER 2: INSTALLATION & TRAINING -->
     <div class="chapter-title" id="chapter2">
       Section 2: Installation & Training
     </div>
-
-    <section id="config-files">
-      <h2>Config Files: How many, What Structure</h2>
-      
-      <div class="image-container">
-        <img src="images/tutorial/config_info.png" alt="Configuration files structure and hierarchy">
-        <div class="image-caption">Configuration files structure for training setup</div>
-      </div>
-
-      <p>The configuration system uses YAML files to define hyperparameters, dataset paths, and training settings. Each experiment requires both a dataset configuration and a main configuration file.</p>
-    </section>
 
     <section id="installation">
       <h2>Installation Setup</h2>
@@ -415,6 +392,9 @@ conda activate lhr</code></pre>
       <h2>Training on Your Custom Data</h2>
       
       <h3>Configuration Setup</h3>
+
+      <p>The configuration system uses YAML files to define hyperparameters, dataset paths, and training settings. Each experiment requires both a dataset configuration and a main configuration file.</p>
+
       <ol>
         <li>
           <strong>Create dataset config:</strong> <code>configs/dataset/&lt;DATASET_ID&gt;.yaml</code>
@@ -427,10 +407,15 @@ conda activate lhr</code></pre>
         <li>
           <strong>Create hyperparameter config:</strong> <code>configs/&lt;DATASET_ID&gt;.yaml</code>
           <div class="note">
-            For structure reference, see the provided config file for our iwcp_south_north experiment.
+            For concrete structure reference, see the provided config file for our iwcp_south_north experiment.
           </div>
         </li>
       </ol>
+
+      <div class="image-container">
+        <img src="images/tutorial/config_info.png" alt="Configuration files structure and hierarchy">
+        <div class="image-caption">Configuration files structure for training setup</div>
+      </div>
 
       <h3>Training Process</h3>
       <ol>
@@ -485,30 +470,24 @@ conda activate lhr</code></pre>
       <a href="https://github.com/malamatenia/learnable-handwriter" target="_blank">
         <strong>Project Repository</strong>
       </a>
-    </div>
 
-    <div class="practice-item">
       <a href="https://colab.research.google.com/github/malamatenia/learnable-handwriter/blob/a9cec8b42373ad149db69cd66dadf6b2ce350876/scripts/reproduce_results/figures.ipynb" target="_blank">
-        <strong>Reproduce Results</strong>
+        <strong>Reproduce the Paper Results</strong>
       </a>
     </div>
   </div>
-</section>
 
-<section>
   <h2>Case Study 2: Hand Variability Analysis</h2>
-  <h3>Graphic Profiles of Codex Paris, BnF, 2813</h3>
+  <h3>The Graphic Profiles of codex Paris, BnF, 2813</h3>
 
   <div class="best-practices">
     <div class="practice-item">
       <a href="https://github.com/malamatenia/palaeographic-variability-analysis-grandes-chroniques-fr-2813/tree/main/scripts" target="_blank">
-        <strong>Project Repository</strong>
+        <strong>Check the Project Repository</strong>
       </a>
-    </div>
 
-    <div class="practice-item">
       <a href="https://github.com/malamatenia/palaeographic-variability-analysis-grandes-chroniques-fr-2813/tree/main/scripts" target="_blank">
-        <strong>Reproduce Results</strong>
+        <strong> Reproduce the Paper Results</strong>
       </a>
     </div>
   </div>
