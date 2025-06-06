@@ -200,17 +200,17 @@
     <p><a href="index.html" class="back-link">← Back to main page</a></p>
 
     <div class="contact-info">
-      <strong>💬 Need Help?</strong><br>
-      If you have any issues preparing the data or training, you can email me at:<br>
-      <code>matenia03[at]gmail[dot]com</code>
+      <strong>Need Help?</strong><br>
+      If you have any issues preparing the data or for training on palaeographical data, you can contact 
+      <code>matenia03[at]gmail[dot]com</code>. If you have any question on the architecture, you can contact:  <code>y.siglidis[at]gmail[dot]com</code>  <br>
     </div>
 
     <div class="toc">
-      <h3>📋 Table of Contents</h3>
+      <h3>Table of Contents</h3>
       <ul>
         <li><a href="#chapter1">Section 1: Data Preparation & Best Practices</a></li>
         <li style="padding-left: 40px;"><a href="#data-format">→ Data Format Requirements</a></li>
-        <li style="padding-left: 40px;"><a href="#best-practices">→ Scientific Guidelines & Best Practices</a></li>
+        <li style="padding-left: 40px;"><a href="#best-practices">→ Data Preparation Best Practices</a></li>
         <li><a href="#chapter2">Section 2: Installation & Training</a></li>
         <li style="padding-left: 40px;"><a href="#config-files">→ Understanding Config Files</a></li>
         <li style="padding-left: 40px;"><a href="#installation">→ System Setup & Installation</a></li>
@@ -222,11 +222,11 @@
 
     <!-- CHAPTER 1: DATA PREPARATION -->
     <div class="chapter-title" id="chapter1">
-      📊 Section 1: Data Preparation & Best Practices
+      Section 1: Data Preparation & Best Practices
     </div>
 
     <section id="data-format">
-      <h2>📁 Data Format Requirements</h2>
+      <h2>Data Format</h2>
       <p>Your dataset must follow a specific structure for the system to work correctly. Here's the required format:</p>
       
       <div class="image-container">
@@ -254,7 +254,7 @@
 }</code></pre>
 
       <div class="note">
-        <strong>Important:</strong> All fields are necessary except "page" and "script". For unsupervised training without evaluation, you can omit the entire annotation.json file.
+        <strong>Important:</strong> All fields are necessary except "page" in this example. For unsupervised training without evaluation, you can omit the annotation.json file entirely.
       </div>
     </section>
 
@@ -263,7 +263,7 @@
 
       <div class="best-practices">
         <div class="practice-item">
-          <strong>✍️ Script Type selection:</strong> Prioritize <em>articulated scripts</em> where individual letters are well-separated over highly cursive writing. While cursive scripts can be tested, resulting prototypes can be blurry and not well modeled/defined.
+          <strong>Script Type selection:</strong> Prioritize <em>articulated scripts</em> where individual letters are well-separated over highly cursive writing. While cursive scripts can be tested, resulting prototypes can be blurry and not well modeled/defined.
         </div>
 
         <div class="practice-item">
@@ -275,23 +275,23 @@
         </div>
 
         <div class="practice-item">
-          <strong>📐 Text Orientation:</strong> Minimize text inclination whenever possible. Images should be as horizontally aligned as possible.
+          <strong>Text Orientation:</strong> Minimize text inclination whenever possible. Images should be as horizontally aligned as possible.
         </div>
 
         <div class="practice-item">
-          <strong>🎨 Alpha Channel:</strong> Always include the alpha channel in your images. This transparency information helps the model distinguish between ink and background more effectively.
+          <strong>Alpha Channel:</strong> Always include the alpha channel in your images. This transparency information helps the model distinguish between ink and background more effectively.
         </div>
 
         <div class="practice-item">
-          <strong>🚫 Image Quality:</strong> Avoid images with ink spills, severe parchment damage, or excessive noise. 
+          <strong>Image Quality:</strong> Avoid images with ink spills, severe parchment damage, or excessive noise. 
         </div>
 
         <div class="practice-item">
-          <strong>📏 Consistent Line Length:</strong> Maintain coherent line lengths throughout your dataset. Avoid mixing very short lines (e.g., from column layouts- manuscripts) with very long lines (e.g., lengthy charter lines). Inconsistent lengths can cause memory allocation issues during training.
+          <strong>Consistent Line Length:</strong> Maintain coherent line lengths throughout your dataset. Avoid mixing very short lines (e.g., from column layouts- manuscripts) with very long lines (e.g., lengthy charter lines). Inconsistent lengths can cause memory allocation issues during training.
         </div>
 
         <div class="practice-item">
-          <strong>🌓 High Contrast:</strong> Ensure strong contrast between ink and background. Poor contrast significantly impacts character recognition performance.
+          <strong>High Contrast:</strong> Ensure strong contrast between ink and background. Poor contrast significantly impacts character recognition performance.
           <div class="image-container">
             <img src="images/tutorial/contrast_example.png" alt="Examples of good vs poor contrast in manuscript images">
             <div class="image-caption">Poor contrast affecting separation of the foreground to the background</div>
@@ -299,7 +299,7 @@
         </div>
 
         <div class="practice-item">
-          <strong>📊 Character Distribution:</strong> Include at least <em>15-20 characters per character class</em>, with >30 characters being optimal. Insufficient character examples lead to poor modeling of a character that is not reliable for palaeographical analysis
+          <strong>Character Distribution:</strong> Include at least <em>15-20 characters per character class</em>, with >30 characters being optimal. Insufficient character examples lead to poor modeling of a character that is not reliable for palaeographical analysis
         </div>
       </div>
 
@@ -307,11 +307,11 @@
 
     <!-- CHAPTER 2: INSTALLATION & TRAINING -->
     <div class="chapter-title" id="chapter2">
-      ⚙️ Section 2: Installation & Training
+      Section 2: Installation & Training
     </div>
 
     <section id="config-files">
-      <h2>📋 Understanding Config Files</h2>
+      <h2>Understanding Config Files</h2>
       <p>Before training, it's important to understand the configuration structure that controls the training process:</p>
       
       <div class="image-container">
@@ -323,13 +323,13 @@
     </section>
 
     <section id="installation">
-      <h2>🚀 System Requirements & Setup</h2>
+      <h2>System Requirements & Setup</h2>
       <div class="warning">
         <strong>⚠️ Platform Compatibility:</strong> macOS is not supported due to compatibility issues with PyTorch's affine transforms. We recommend running on a Linux system with CUDA support. GPU usage is strongly advised for training.
       </div>
 
       <div class="note">
-        <strong>🚀 No GPU? Use Google Colab!</strong><br>
+        <strong>🚀 No GPU? Train on Google Colab!</strong><br>
         If you don't have access to a GPU, you can train models using our Google Colab notebook:<br>
         <a href="https://colab.research.google.com/drive/12CGIAhzeBJWgm9o9Tb8dCHFDxzcxwWzF?usp=sharing" target="_blank">
           <img src="images/tutorial/colab_training.png" alt="Google Colab Training" style="max-width: 200px; margin: 10px 0;">
@@ -338,12 +338,12 @@
       </div>
 
       <div class="note">
-        <strong>🔬 Quick Inference Only?</strong><br>
+        <strong>Inference </strong><br>
         For minimal inference on pre-trained and fine-tuned models without installation:<br>
         <a href="https://colab.research.google.com/drive/11_CGvoXvpulKNEDsRN9MdBS35NvNz5l7?usp=sharing" target="_blank">→ Open Inference-Only Colab</a>
       </div>
       
-      <h3>📦 Installation Steps</h3>
+      <h3>Installation Steps</h3>
       <p>After cloning the repository and entering the base folder:</p>
       
       <ol>
@@ -362,14 +362,14 @@ conda activate lhr</code></pre>
           <strong>Install requirements:</strong>
           <pre><code>python -m pip install -r requirements.txt</code></pre>
           <div class="note">
-            <strong>📊 Training Visualization:</strong> Weights & Biases (wandb) is automatically installed for training process visualization and monitoring.
+            <strong>Training Visualization:</strong> Weights & Biases (wandb) is automatically installed for training process visualization and monitoring.
           </div>
         </li>
       </ol>
     </section>
 
     <section id="training">
-      <h2>🧪 Training on Provided Dataset</h2>
+      <h2>Training on Provided Dataset</h2>
       <p>To get started quickly with our reference dataset:</p>
 
       <ol>
@@ -379,7 +379,7 @@ conda activate lhr</code></pre>
         </li>
       </ol>
 
-      <h3>🎯 Fine-tuning Options</h3>
+      <h3>Fine-tuning Options</h3>
       
       <h4>1. Script-based Fine-tuning (Northern and Southern Textualis):</h4>
       <pre><code>python scripts/finetune_scripts.py -i runs/iwcp_south_north/train/ \
@@ -398,7 +398,7 @@ conda activate lhr</code></pre>
     </section>
 
     <section id="custom-data">
-      <h2>📁 Training on Your Custom Data</h2>
+      <h2>Training on Your Custom Data</h2>
       
       <h3>Configuration Setup</h3>
       <ol>
@@ -453,47 +453,45 @@ conda activate lhr</code></pre>
       </ul>
       
       <div class="warning">
-        <strong>⚠️ Latin Script Default:</strong> The disambiguation table will be used as DEFAULT if not changed to normalize data in Latin scripts. Ensure this is appropriate for your script type before training.
+        <strong>⚠️ </strong> The existing disambiguation_table will be used as DEFAULT if not changed. Ensure this is appropriate for your script type before training.
       </div>
     </section>
 
     <!-- CHAPTER 3: CASE STUDIES -->
     <div class="chapter-title" id="case-studies">
-      📚 Section 3: Case Studies
+      Section 3, Case Studies: Palaeographical Analysis using the Learnable Handwriter
     </div>
 
     <section>
-      <h2>🔬 Case Study 1: Morphological Script Type Analysis</h2>
+      <h2>Case Study 1: Morphological Script Type Analysis</h2>
       <h3>Northern and Southern Textualis</h3>
-      <p>This comprehensive case study demonstrates morphological analysis of medieval script types using the Learnable Handwriter framework.</p>
       
       <div class="best-practices">
         <div class="practice-item">
-          <strong>📖 Full Implementation:</strong>
-          <a href="https://github.com/malamatenia/learnable-handwriter" target="_blank">→ View Complete Repository</a>
+          <strong>Project Repository:</strong>
+          <a href="https://github.com/malamatenia/learnable-handwriter" target="_blank"></a>
         </div>
         
         <div class="practice-item">
-          <strong>📊 Reproduce Results:</strong>
-          <a href="https://colab.research.google.com/github/malamatenia/learnable-handwriter/blob/a9cec8b42373ad149db69cd66dadf6b2ce350876/scripts/reproduce_results/figures.ipynb" target="_blank">→ Open Figures Reproduction Colab</a>
+          <strong>Reproduce Results:</strong>
+          <a href="https://colab.research.google.com/github/malamatenia/learnable-handwriter/blob/a9cec8b42373ad149db69cd66dadf6b2ce350876/scripts/reproduce_results/figures.ipynb" target="_blank"></a>
         </div>
       </div>
     </section>
 
     <section>
-      <h2>✍️ Case Study 2: Hand Variability Analysis</h2>
+      <h2>Case Study 2: Hand Variability Analysis</h2>
       <h3>Graphic Profiles of Codex Paris, BnF, 2813</h3>
-      <p>This study analyzes paleographic variability within the Grandes Chroniques de France manuscript, demonstrating individual hand identification and analysis.</p>
       
       <div class="best-practices">
         <div class="practice-item">
-          <strong>📂 Analysis Scripts:</strong>
-          <a href="https://github.com/malamatenia/palaeographic-variability-analysis-grandes-chroniques-fr-2813/tree/main/scripts" target="_blank">→ View Analysis Repository</a>
+          <strong>Project Repository:</strong>
+          <a href="https://github.com/malamatenia/palaeographic-variability-analysis-grandes-chroniques-fr-2813/tree/main/scripts" target="_blank"></a>
         </div>
         
         <div class="practice-item">
-          <strong>🧪 Run Colab Notebooks:</strong>
-          <a href="https://github.com/malamatenia/palaeographic-variability-analysis-grandes-chroniques-fr-2813/tree/main/scripts" target="_blank">→ Access Colab Scripts</a>
+          <strong>Reproduce Results:</strong>
+          <a href="https://github.com/malamatenia/palaeographic-variability-analysis-grandes-chroniques-fr-2813/tree/main/scripts" target="_blank"></a>
         </div>
       </div>
     </section>
