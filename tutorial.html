@@ -209,12 +209,11 @@
       <ul>
         <li><a href="#chapter1">Section 1: Data Preparation & Best Practices</a></li>
         <li style="padding-left: 40px;"><a href="#data-format">Data Format Requirements</a></li>
-        <li style="padding-left: 40px;"><a href="#best-practices">Data Preparation Best Practices</a></li>
+        <li style="padding-left: 40px;"><a href="#best-practices">Best Practices for Data Preparation</a></li>
         <li><a href="#chapter2">Section 2: Installation & Training</a></li>
         <li style="padding-left: 40px;"><a href="#installation">System Setup & Installation</a></li>
         <li style="padding-left: 40px;"><a href="#training">Training Process</a></li>
         <li style="padding-left: 40px;"><a href="#custom-data">Custom Data Training</a></li>
-        <li><a href="#case-studies">Section 3: Case Studies</a></li>
       </ul>
     </div>
 
@@ -257,7 +256,7 @@
     </section>
 
 <section id="best-practices">
-      <h3>Best Practices for Data</h3>
+      <h3>Best Practices for Data Preparation</h3>
 
 
 
@@ -276,10 +275,10 @@
           <strong>Alpha Channel:</strong> Always include the alpha channel in your images. This transparency information helps the model distinguish between ink and background more effectively.
 
           <strong>Image Quality:</strong> Avoid images with ink spills, severe parchment damage, or excessive noise. 
-        </div>
+
 
           <strong>Consistent Line Length:</strong> Maintain coherent line lengths throughout your dataset. Avoid mixing very short lines (e.g., from column layouts- manuscripts) with very long lines (e.g., lengthy charter lines). Inconsistent lengths can cause memory allocation issues during training.
-        </div>
+
 
           <strong>High Contrast:</strong> Ensure strong contrast between ink and background. Poor contrast significantly impacts character recognition performance.
           <div class="image-container">
@@ -361,7 +360,7 @@ conda activate lhr</code></pre>
 
     <section id="training">
       <h2>Training on Provided Dataset</h2>
-      <p>To get started quickly with our reference dataset:</p>
+      <p>To get started quickly with our reference dataset from the paper <a href="https://github.com/malamatenia/learnable-handwriter" target="_blank">"An Interpretable Deep Learning Approach for Morphological Script Type Analysis (IWCP 2024)</a>:</p> 
 
       <ol>
         <li>Download and extract <code>datasets.zip</code></li>
@@ -456,42 +455,6 @@ conda activate lhr</code></pre>
       </div>
     </section>
 
-    <!-- CHAPTER 3: CASE STUDIES -->
-    <div class="chapter-title" id="case-studies">
-      Section 3, Case Studies: Palaeographical Analysis using the Learnable Handwriter
-    </div>
-
-<section>
-  <h2>Case Study 1: Morphological Script Type Analysis</h2>
-  <h3>Northern and Southern Textualis</h3>
-
-  <div class="best-practices">
-    <div class="practice-item">
-      <a href="https://github.com/malamatenia/learnable-handwriter" target="_blank">
-        <strong>Project Repository</strong>
-      </a>
-
-      <a href="https://colab.research.google.com/github/malamatenia/learnable-handwriter/blob/a9cec8b42373ad149db69cd66dadf6b2ce350876/scripts/reproduce_results/figures.ipynb" target="_blank">
-        <strong>Reproduce the Paper Results</strong>
-      </a>
-    </div>
-  </div>
-
-  <h2>Case Study 2: Hand Variability Analysis</h2>
-  <h3>The Graphic Profiles of codex Paris, BnF, 2813</h3>
-
-  <div class="best-practices">
-    <div class="practice-item">
-      <a href="https://github.com/malamatenia/palaeographic-variability-analysis-grandes-chroniques-fr-2813/tree/main/scripts" target="_blank">
-        <strong>Check the Project Repository</strong>
-      </a>
-
-      <a href="https://github.com/malamatenia/palaeographic-variability-analysis-grandes-chroniques-fr-2813/tree/main/scripts" target="_blank">
-        <strong> Reproduce the Paper Results</strong>
-      </a>
-    </div>
-  </div>
-</section>
 
     <footer>
       <p><a href="index.html" class="back-link">← Back to main page</a></p>
