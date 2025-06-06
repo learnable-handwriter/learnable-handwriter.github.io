@@ -256,39 +256,48 @@
     </section>
 
 <section id="best-practices">
-      <h3>Best Practices for Data Preparation</h3>
+  <h3>Best Practices for Data Preparation</h3>
 
+  <div>
+    <strong>Script Type selection:</strong> Prioritize <em>articulated scripts</em> where individual letters are well-separated over highly cursive writing. While cursive scripts can be tested, resulting prototypes can be blurry and not well modeled/defined.
+  </div>
 
+  <div>
+    <strong>Text Line Segmentation:</strong> Ensure accurate polygon segmentation with no surrounding letters or extraneous marks. Clean boundaries are critical for proper character isolation. Surrounding noise (like letters from previous lines) can create noise in the prototype.
+    <div class="image-container">
+      <img src="images/tutorial/polygon_example.png" alt="Example showing good vs poor polygon segmentation">
+      <div class="image-caption">Example of good polygon segmentation.</div>
+    </div>
+  </div>
 
-          <strong>Script Type selection:</strong> Prioritize <em>articulated scripts</em> where individual letters are well-separated over highly cursive writing. While cursive scripts can be tested, resulting prototypes can be blurry and not well modeled/defined.
+  <div>
+    <strong>Text Orientation:</strong> Minimize text inclination whenever possible. Images should be as horizontally aligned as possible.
+  </div>
 
+  <div>
+    <strong>Alpha Channel:</strong> Always include the alpha channel in your images. This transparency information helps the model distinguish between ink and background more effectively.
+  </div>
 
+  <div>
+    <strong>Image Quality:</strong> Avoid images with ink spills, severe parchment damage, or excessive noise.
+  </div>
 
-          <strong> Text Line Segmentation:</strong> Ensure accurate polygon segmentation with no surrounding letters or extraneous marks. Clean boundaries are critical for proper character isolation. Surrounding noise (like letters from previous lines) can create noise in the prototype.
-          <div class="image-container">
-            <img src="images/tutorial/polygon_example.png" alt="Example showing good vs poor polygon segmentation">
-            <div class="image-caption">Example of good polygon segmentation.</div>
-          </div>
+  <div>
+    <strong>Consistent Line Length:</strong> Maintain coherent line lengths throughout your dataset. Avoid mixing very short lines (e.g., from column layouts- manuscripts) with very long lines (e.g., lengthy charter lines). Inconsistent lengths can cause memory allocation issues during training.
+  </div>
 
-          <strong>Text Orientation:</strong> Minimize text inclination whenever possible. Images should be as horizontally aligned as possible.
+  <div>
+    <strong>High Contrast:</strong> Ensure strong contrast between ink and background. Poor contrast significantly impacts character recognition performance.
+    <div class="image-container">
+      <img src="images/tutorial/contrast_example.png" alt="Examples of good vs poor contrast in manuscript images">
+      <div class="image-caption">Poor contrast affecting separation of the foreground to the background</div>
+    </div>
+  </div>
 
-          <strong>Alpha Channel:</strong> Always include the alpha channel in your images. This transparency information helps the model distinguish between ink and background more effectively.
-
-          <strong>Image Quality:</strong> Avoid images with ink spills, severe parchment damage, or excessive noise. 
-
-
-          <strong>Consistent Line Length:</strong> Maintain coherent line lengths throughout your dataset. Avoid mixing very short lines (e.g., from column layouts- manuscripts) with very long lines (e.g., lengthy charter lines). Inconsistent lengths can cause memory allocation issues during training.
-
-
-          <strong>High Contrast:</strong> Ensure strong contrast between ink and background. Poor contrast significantly impacts character recognition performance.
-          <div class="image-container">
-            <img src="images/tutorial/contrast_example.png" alt="Examples of good vs poor contrast in manuscript images">
-            <div class="image-caption">Poor contrast affecting separation of the foreground to the background</div>
-          </div>
-
-          <strong>Character Distribution:</strong> Include at least <em>15-20 characters per character class</em>, with >30 characters being optimal. Insufficient character examples lead to poor modeling of a character that is not reliable for palaeographical analysis
-
-    </section>
+  <div>
+    <strong>Character Distribution:</strong> Include at least <em>15-20 characters per character class</em>, with >30 characters being optimal. Insufficient character examples lead to poor modeling of a character that is not reliable for palaeographical analysis
+  </div>
+</section>
 
     <!-- CHAPTER 2: INSTALLATION & TRAINING -->
     <div class="chapter-title" id="chapter2">
@@ -307,9 +316,7 @@
 
   <p>
     <a href="https://colab.research.google.com/drive/12CGIAhzeBJWgm9o9Tb8dCHFDxzcxwWzF?usp=sharing" target="_blank">
-      <img src="images/tutorial/colab_training.png" alt="Training in Colab" style="max-width: 50px; vertical-align: middle;">
-    </a>
-    <a href="https://colab.research.google.com/drive/12CGIAhzeBJWgm9o9Tb8dCHFDxzcxwWzF?usp=sharing" target="_blank">
+      <img src="images/tutorial/colab_training.png" alt="Training in Colab">
       Open Training Colab
     </a>
   </p>
@@ -320,9 +327,7 @@
 
   <p>
     <a href="https://colab.research.google.com/drive/11_CGvoXvpulKNEDsRN9MdBS35NvNz5l7?usp=sharing" target="_blank">
-      <img src="images/tutorial/colab_inference.png" alt="Inference in Colab" style="max-width: 50px; vertical-align: middle;">
-    </a>
-    <a href="https://colab.research.google.com/drive/11_CGvoXvpulKNEDsRN9MdBS35NvNz5l7?usp=sharing" target="_blank">
+      <img src="images/tutorial/colab_training.png" alt="Inference in Colab">
       Open Inference Colab
     </a>
   </p>
