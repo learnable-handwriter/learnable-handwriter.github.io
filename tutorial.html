@@ -195,14 +195,23 @@
 </head>
 <body>
   <div class="container">
-    <h1>🛠 Learnable Handwriter Complete Tutorial</h1>
+    <h1>🛠 The Learnable Handwriter Complete Tutorial</h1>
     <p><a href="index.html" class="back-link">← Back to main page</a></p>
 
     <div class="contact-info">
       <strong>Need Help?</strong><br>
-      If you have any issues preparing the data or for applications on palaeographical data, contact 
-      <code>matenia03[at]gmail[dot]com</code>. If you have any question on the architecture, contact:  <code>y.siglidis[at]gmail[dot]com</code>  <br>
+      For any questions regarding data preparation/training contact: 
+      <code>matenia03[at]gmail[dot]com</code>. For question related to the architecture, contact:  <code>y.siglidis[at]gmail[dot]com</code>  <br>
     </div>
+
+  <div class="summary">
+    <p>
+      This page provides a comprehensive guide for using the Learnable Handwriter. The Learnable Handwriter is an adaptation of 
+      <a href="https://learnable-typewriter.github.io/" target="_blank">
+        the Learnable Typewriter: A generative approach to text line analysis
+      </a> for palaeographical morphological analysis.The tutorial covers preparing data, training and fine-tuning models, as well as best practices.
+    </p>
+  </div>
 
     <div class="toc">
       <h3>Table of Contents</h3>
@@ -224,19 +233,23 @@
 
     <section id="data-format">
       <h2>Data Format</h2>
-      <p>Your dataset must follow a specific structure for the system to work correctly. Here's the required format:</p>
-      
+      <p>Your dataset must follow a specific structure for the system to work correctly. You will need to create a directory containing extracted images of text lines as well as their annotations (if used in a supervised setting) in an <code>annotation.json</code>. 
+
+
       <div class="image-container">
         <img src="images/tutorial/data_structure.png" alt="Data structure diagram showing folder hierarchy and annotation format">
-        <div class="image-caption">Required data structure: folders, images, and annotation.json format</div>
+        <div class="image-caption">Required data structure: folders, images, and annotation.json content</div>
       </div>
 
-      <h3>Directory Structure:</h3>
+      More specifically: </p>
+
+
+      <h3>Image Directory Structure:</h3>
       <pre><code>datasets/&lt;DATASET-NAME&gt;/
-├── annotation.json
-└── images/
-    ├── &lt;image_id&gt;.png
-    └── ...</code></pre>
+        ├── annotation.json
+        └── images/
+            ├── &lt;image_id&gt;.png
+            └── ...</code></pre>
 
       <h3>Annotation Format:</h3>
       <p>The <code>annotation.json</code> file must contain entries in this exact format:</p>
@@ -250,53 +263,67 @@
   ...
 }</code></pre>
 
-      <div class="note">
-        <strong>Important:</strong> All fields are necessary except "page" in this example. For unsupervised training without evaluation, you can omit the annotation.json file entirely.
-      </div>
+
+
+  <div class="note">
+    <strong>Attention:</strong> Null lines will not be skipped by the Learnable Handwriter and will cause the training to fail. Make sure there are no empty label values in your annotation.json.
+    <p>
+      👉 You can download and follow the instructions in
+      <a href="https://github.com/malamatenia/learnable-handwriter/tree/769280c0aa383855b8fc4b2bdfa497b795a241a0/scripts/create_dataset" target="_blank" rel="noopener noreferrer">
+        this notebook
+      </a> to automatically create a Learnable Handwriter-compatible dataset.
+    </p>
+  </div>
+
+
+
     </section>
+
 
 <section id="best-practices">
   <h3>Best Practices for Data Preparation</h3>
 
-  <div>
-    <strong>Script Type selection:</strong> Prioritize <em>articulated scripts</em> where individual letters are well-separated over highly cursive writing. While cursive scripts can be tested, resulting prototypes can be blurry and not well modeled/defined.
-  </div>
+  <ul style="padding-left: 20px;">
+    <li>
+      <strong>Script Type selection:</strong> Prioritize <em>articulated scripts</em> where individual letters are well-separated over highly cursive writing. While cursive scripts can be tested, resulting prototypes can be blurry and not well modeled/defined.
+    </li>
 
-  <div>
-    <strong>Text Line Segmentation:</strong> Ensure accurate polygon segmentation with no surrounding letters or extraneous marks. Clean boundaries are critical for proper character isolation. Surrounding noise (like letters from previous lines) can create noise in the prototype.
-    <div class="image-container">
-      <img src="images/tutorial/polygon_example.png" alt="Example showing good vs poor polygon segmentation" style="max-width: 500px; vertical-align: middle;"> 
-      <div class="image-caption">Example of good polygon segmentation.</div>
-    </div>
-  </div>
+    <li>
+      <strong>Text Line Segmentation:</strong> Ensure accurate polygon segmentation with no surrounding letters or extraneous marks. Clean boundaries are critical for proper character modeling. Surrounding noise (like letters from previous lines) can create noise in the prototype.
+      <div class="image-container">
+        <img src="images/tutorial/polygon_example.png" alt="Example showing good vs poor polygon segmentation" style="max-width: 500px; vertical-align: middle;">
+        <div class="image-caption">Example of good polygon segmentation.</div>
+      </div>
+    </li>
 
-  <div>
-    <strong>Text Orientation:</strong> Minimize text inclination whenever possible. Images should be as horizontally aligned as possible.
-  </div>
+    <li>
+      <strong>Alpha Channel:</strong> Always preserve the alpha channel in the extracted text line images.
+    </li>
 
-  <div>
-    <strong>Alpha Channel:</strong> Always include the alpha channel in your images. This transparency information helps the model distinguish between ink and background more effectively.
-  </div>
+    <li>
+      <strong>Text Orientation:</strong> Minimize text inclination whenever possible. Images should be as horizontally aligned as possible.
+    </li>
 
-  <div>
-    <strong>Image Quality:</strong> Avoid images with ink spills, severe parchment damage, or excessive noise.
-  </div>
+    <li>
+      <strong>Image Quality:</strong> Avoid images with ink spills, severe parchment damage, or excessive noise.
+    </li>
 
-  <div>
-    <strong>Consistent Line Length:</strong> Maintain coherent line lengths throughout your dataset. Avoid mixing very short lines (e.g., from column layouts- manuscripts) with very long lines (e.g., lengthy charter lines). Inconsistent lengths can cause memory allocation issues during training.
-  </div>
+    <li>
+      <strong>Consistent Line Length:</strong> Maintain coherent line lengths throughout your dataset. Avoid mixing very short lines (e.g., from column layouts–manuscripts) with very long lines (e.g., lengthy charter lines). Inconsistent lengths can cause memory allocation issues during training.
+    </li>
 
-  <div>
-    <strong>High Contrast:</strong> Ensure strong contrast between ink and background. Poor contrast significantly impacts character recognition performance.
-    <div class="image-container">
-      <img src="images/tutorial/contrast_example.png" alt="Examples of good vs poor contrast in manuscript images" style="vertical-align: middle;">
-      <div class="image-caption">Poor contrast affecting separation of the foreground to the background</div>
-    </div>
-  </div>
+    <li>
+      <strong>High Contrast:</strong> Ensure strong contrast between ink and background. Poor contrast significantly impacts character recognition performance.
+      <div class="image-container">
+        <img src="images/tutorial/contrast_example.png" alt="Examples of good vs poor contrast in manuscript images" style="vertical-align: middle;">
+        <div class="image-caption">Poor contrast affecting separation of the foreground from the background.</div>
+      </div>
+    </li>
 
-  <div>
-    <strong>Character Distribution:</strong> Include at least <em>15-20 characters per character class</em>, with >30 characters being optimal. Insufficient character examples lead to poor modeling of a character that is not reliable for palaeographical analysis
-  </div>
+    <li>
+      <strong>Character Distribution:</strong> Make sure your dataset (or fine-tuning subset) contains at least <em>15–20 characters per character class</em>, with &gt;30 characters being optimal. Insufficient character examples lead to poor modeling of a character that is not reliable for palaeographical analysis.
+    </li>
+  </ul>
 </section>
 
     <!-- CHAPTER 2: INSTALLATION & TRAINING -->
